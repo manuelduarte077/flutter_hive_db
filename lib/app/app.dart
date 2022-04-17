@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_hive_db/routes/app_route.dart';
+import 'package:flutter_hive_db/screens/screens.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: Center(
-          child: Container(
-            child: const Text('Hello World'),
-          ),
-        ),
-      ),
+      initialRoute: HomeScreen.routeName,
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }
