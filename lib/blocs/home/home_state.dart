@@ -4,6 +4,7 @@ abstract class HomeState extends Equatable {
   const HomeState();
 }
 
+
 class HomeInitial extends HomeState {
   final bool? success;
 
