@@ -8,7 +8,7 @@ class HomeInitial extends HomeState {
   final bool? success;
 
   const HomeInitial({
-     this.success,
+    this.success,
   });
 
   @override
