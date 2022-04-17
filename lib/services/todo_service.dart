@@ -7,6 +7,13 @@ class TodoService {
   Future<void> init() async {
     Hive.registerAdapter(TaskAdapter());
     _tasksBox = await Hive.openBox<Task>('tasks');
+
+    await _tasksBox.clear();
+
+    await _tasksBox
+        .add(Task('testUser1', 'testTask1', 'testDescription1', false));
+    await _tasksBox
+        .add(Task('flutter1', 'testTask1', 'testDescription1', false));
   }
 
   List<Task> getTask(final String userName) {

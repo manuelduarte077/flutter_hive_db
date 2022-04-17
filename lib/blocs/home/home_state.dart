@@ -18,3 +18,8 @@ class SuccessFullLoginState extends HomeState {
   @override
   List<Object?> get props => [userName];
 }
+
+class RegisteringServicesState extends HomeState {
+  @override
+  List<Object?> get props => [];
+}

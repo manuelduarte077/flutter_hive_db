@@ -7,6 +7,9 @@ class AuthenticationService {
   Future<void> init() async {
     Hive.registerAdapter(UserAdapter());
     _users = await Hive.openBox<User>('usersBox');
+
+    _users.add(User('testUser1', 'password'));
+    _users.add(User('flutter1', 'password'));
   }
 
   Future<String?> authenticateUser(

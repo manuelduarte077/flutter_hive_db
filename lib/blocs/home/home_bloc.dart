@@ -7,8 +7,10 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final AuthenticationService _authenticationService;
+  final TodoService _todoService;
 
-  HomeBloc(this._authenticationService) : super(const HomeInitial()) {
+  HomeBloc(this._authenticationService, this._todoService)
+      : super(RegisteringServicesState()) {
     on<LoginEvent>((event, emitter) async {
       print('LoginEvent $event');
 
@@ -17,7 +19,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (user != null) {
         emit(SuccessFullLoginState(user));
+        emit(const HomeInitial());
       }
+    });
+
+    on<RegisterServicesEvent>((event, emitter) async {
+      await _authenticationService.init();
+      await _todoService.init();
+
+      emit(const HomeInitial());
     });
   }
 }
