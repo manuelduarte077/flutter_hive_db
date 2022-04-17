@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_hive_db/screens/screens.dart';
 import 'package:flutter_hive_db/utils/error_route.dart';
 
@@ -10,8 +9,10 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return HomeScreen.route();
-      case '/login':
+      case LoginScreen.routeName:
         return LoginScreen.route();
+      case TodosScreen.routeName:
+        return TodosScreen.route();
 
       default:
         return _errorRoute();
