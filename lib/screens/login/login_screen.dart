@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_db/blocs/blocs.dart';
+import 'package:flutter_hive_db/services/authentication.dart';
 
 class LoginScreen extends StatelessWidget {
   final userNameField = TextEditingController();
@@ -25,7 +26,8 @@ class LoginScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: BlocProvider(
-        create: (context) => HomeBloc(),
+        create: (context) =>
+            HomeBloc(RepositoryProvider.of<AuthenticationService>(context)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: BlocBuilder<HomeBloc, HomeState>(

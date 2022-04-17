@@ -1,7 +1,7 @@
 import 'package:flutter_hive_db/models/models.dart';
 import 'package:hive/hive.dart';
 
-class Authentication {
+class AuthenticationService {
   late Box<User> _users;
 
   Future<void> init() async {
