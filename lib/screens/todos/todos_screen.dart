@@ -4,18 +4,18 @@ import 'package:flutter_hive_db/blocs/blocs.dart';
 import 'package:flutter_hive_db/services/services.dart';
 
 class TodosScreen extends StatelessWidget {
-  final String userName;
+  final String? userName;
 
   const TodosScreen({
     Key? key,
-    required this.userName,
+    this.userName,
   }) : super(key: key);
 
   static const String routeName = '/todos';
 
   static Route route() {
     return MaterialPageRoute(
-      builder: (_) => const TodosScreen(userName: ''),
+      builder: (_) => const TodosScreen(),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -29,7 +29,7 @@ class TodosScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) =>
             TodosBloc(RepositoryProvider.of<TodoService>(context))
-              ..add(LoadTodosEvent(userName)),
+              ..add(LoadTodosEvent(userName!)),
         child: BlocBuilder<TodosBloc, TodosState>(
           builder: (context, state) {
             if (state is TodosLoadedState) {

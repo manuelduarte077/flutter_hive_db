@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_db/blocs/blocs.dart';
-import 'package:flutter_hive_db/services/authentication.dart';
+import 'package:flutter_hive_db/screens/screens.dart';
 import 'package:flutter_hive_db/services/services.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -33,7 +33,16 @@ class LoginScreen extends StatelessWidget {
         )..add(RegisterServicesEvent()),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          child: BlocBuilder<HomeBloc, HomeState>(
+          child: BlocConsumer<HomeBloc, HomeState>(
+            listener: (context, state) {
+              if (state is SuccessFullLoginState) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => TodosScreen(userName: state.userName),
+                  ),
+                );
+              }
+            },
             builder: (context, state) {
               if (state is HomeInitial) {
                 return Column(
@@ -50,10 +59,18 @@ class LoginScreen extends StatelessWidget {
                       controller: passwordField,
                     ),
                     const SizedBox(height: 25),
-                    ElevatedButton(
-                      onPressed: () => BlocProvider.of<HomeBloc>(context).add(
-                          LoginEvent(userNameField.text, passwordField.text)),
-                      child: const Text('Login'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => BlocProvider.of<HomeBloc>(context)
+                              .add(LoginEvent(
+                                  userNameField.text, passwordField.text)),
+                          child: const Text('Login'),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {}, child: const Text('Register')),
+                      ],
                     ),
                   ],
                 );

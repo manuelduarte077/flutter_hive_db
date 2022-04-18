@@ -12,8 +12,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc(this._authenticationService, this._todoService)
       : super(RegisteringServicesState()) {
     on<LoginEvent>((event, emitter) async {
-      print('LoginEvent $event');
-
       final user = await _authenticationService.authenticateUser(
           event.userName, event.password);
 
