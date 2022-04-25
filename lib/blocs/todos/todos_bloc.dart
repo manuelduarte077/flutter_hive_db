@@ -8,12 +8,22 @@ part 'todos_state.dart';
 
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
   final TodoService _todoService;
+
   TodosBloc(this._todoService) : super(TodosInitial()) {
     on<LoadTodosEvent>((event, emit) {
       print('LoadTodosEvent $event');
 
       final todos = _todoService.getTask(event.userName);
-      emit(TodosLoadedState(todos));
+      emit(TodosLoadedState(todos, event.userName));
+    });
+
+    on<AddTodoEvent>((event, emit) async {
+      print('AddTodoEvent $event');
+
+      final currenState = state as TodosLoadedState;
+      _todoService.addTask(
+          event.taskText, event.descriptionText, currenState.userName);
+      add(LoadTodosEvent(currenState.userName));
     });
   }
 }
