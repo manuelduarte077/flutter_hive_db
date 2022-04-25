@@ -1,4 +1,5 @@
 import 'package:flutter_hive_db/models/models.dart';
+
 import 'package:hive/hive.dart';
 
 class AuthenticationService {
@@ -23,4 +24,22 @@ class AuthenticationService {
       return null;
     }
   }
+
+  Future<UserCreationResult> createUser(
+      final String userName, final String password) async {
+    final alReadyExists = _users.values.any(
+        (element) => element.userName.toLowerCase() == userName.toLowerCase());
+
+    if (alReadyExists) {
+      return UserCreationResult.alreadyExists;
+    }
+    try {
+      _users.add(User(userName, password));
+      return UserCreationResult.success;
+    } on Exception catch (ex) {
+      return UserCreationResult.failure;
+    }
+  }
 }
+
+enum UserCreationResult { success, failure, alreadyExists }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_hive_db/blocs/blocs.dart';
 import 'package:flutter_hive_db/screens/screens.dart';
 import 'package:flutter_hive_db/services/services.dart';
+import 'package:flutter_hive_db/widgets/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   final userNameField = TextEditingController();
@@ -22,8 +24,10 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Login'),
+        backgroundColor: Colors.white,
+        elevation: 0,
         automaticallyImplyLeading: false,
       ),
       body: BlocProvider(
@@ -42,37 +46,29 @@ class LoginScreen extends StatelessWidget {
                   ),
                 );
               }
+
+              if (state is HomeInitial) {
+                if (state.error != null) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Error',
+                          style: TextStyle(color: Colors.red)),
+                      content: Text(state.error!,
+                          style: const TextStyle(color: Colors.red)),
+                    ),
+                  );
+                }
+              }
             },
             builder: (context, state) {
               if (state is HomeInitial) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Login'),
-                    TextField(
-                      controller: userNameField,
-                      decoration: const InputDecoration(labelText: 'Username'),
-                    ),
-                    TextField(
-                      obscureText: true,
-                      decoration: const InputDecoration(labelText: 'Password'),
-                      controller: passwordField,
-                    ),
-                    const SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => BlocProvider.of<HomeBloc>(context)
-                              .add(LoginEvent(
-                                  userNameField.text, passwordField.text)),
-                          child: const Text('Login'),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {}, child: const Text('Register')),
-                      ],
-                    ),
-                  ],
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 25),
+                  child: LoginContent(
+                    userNameField: userNameField,
+                    passwordField: passwordField,
+                  ),
                 );
               }
               return const Center(child: CircularProgressIndicator.adaptive());

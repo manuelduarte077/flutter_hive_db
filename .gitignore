@@ -1,3 +1,5 @@
+.fvm/flutter_sdk
+.fvm/
 # Miscellaneous
 *.class
 *.log
@@ -30,7 +32,7 @@
 .pub-cache/
 .pub/
 /build/
-
+.vscode/
 # Web related
 lib/generated_plugin_registrant.dart
 

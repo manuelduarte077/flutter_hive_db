@@ -14,7 +14,10 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (context) => AuthenticationService()),
         RepositoryProvider(create: (context) => TodoService()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: LoginScreen.routeName,
         onGenerateRoute: AppRouter.onGenerateRoute,

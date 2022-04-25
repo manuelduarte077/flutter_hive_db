@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hive_db/blocs/blocs.dart';
+import 'package:flutter_hive_db/screens/screens.dart';
 import 'package:flutter_hive_db/services/services.dart';
 
 class TodosScreen extends StatelessWidget {
@@ -25,6 +26,16 @@ class TodosScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Task List'),
+        automaticallyImplyLeading: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.logout),
+            ),
+          ),
+        ],
       ),
       body: BlocProvider(
         create: (context) =>
